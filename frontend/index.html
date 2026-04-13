@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -153,10 +154,10 @@ tr:hover td{
 <div class="card">
 <h2>Project Info</h2>
 <p>✔ 3 Tier Architecture</p>
-<p>✔ Frontend: HTML/CSS/JS</p>
+<p>✔ Frontend: HTML / CSS / JavaScript</p>
 <p>✔ Backend: Flask API</p>
-<p>✔ Database: MySQL</p>
-<p>✔ Docker Networking</p>
+<p>✔ Deployment: Render</p>
+<p>✔ DevOps Ready Project</p>
 
 <button class="load-btn" onclick="loadStudents()">Load Students</button>
 </div>
@@ -179,61 +180,7 @@ tr:hover td{
 
 </div>
 
-<script>
-async function loadStudents(){
-    const response = await fetch("http://localhost:5000/students");
-    const data = await response.json();
-
-    let table = document.getElementById("studentsTable");
-
-    table.innerHTML = `
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Course</th>
-            <th>Email</th>
-        </tr>
-    `;
-
-    data.forEach(student => {
-        let row = table.insertRow();
-
-        row.insertCell(0).innerHTML = student.id;
-        row.insertCell(1).innerHTML = student.name;
-        row.insertCell(2).innerHTML = student.course;
-        row.insertCell(3).innerHTML = student.email;
-    });
-}
-
-async function addStudent(){
-
-    const name = document.getElementById("name").value;
-    const course = document.getElementById("course").value;
-    const email = document.getElementById("email").value;
-
-    const response = await fetch("http://localhost:5000/addstudent",{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-            name:name,
-            course:course,
-            email:email
-        })
-    });
-
-    const result = await response.json();
-
-    document.getElementById("msg").innerHTML = result.message;
-
-    document.getElementById("name").value="";
-    document.getElementById("course").value="";
-    document.getElementById("email").value="";
-
-    loadStudents();
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
+```

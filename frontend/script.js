@@ -1,8 +1,11 @@
+const API_URL = "https://YOUR-BACKEND.onrender.com";
+
 async function loadStudents() {
-    const response = await fetch("http://localhost:5000/students");
+    const response = await fetch(`${API_URL}/students`);
     const data = await response.json();
 
     let table = document.getElementById("studentsTable");
+
     table.innerHTML = `
         <tr>
             <th>ID</th>
@@ -21,3 +24,34 @@ async function loadStudents() {
         row.insertCell(3).innerHTML = student.email;
     });
 }
+
+async function addStudent() {
+
+    const name = document.getElementById("name").value;
+    const course = document.getElementById("course").value;
+    const email = document.getElementById("email").value;
+
+    const response = await fetch(`${API_URL}/addstudent`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name,
+            course,
+            email
+        })
+    });
+
+    const result = await response.json();
+
+    document.getElementById("msg").innerHTML = result.message;
+
+    document.getElementById("name").value = "";
+    document.getElementById("course").value = "";
+    document.getElementById("email").value = "";
+
+    loadStudents();
+}
+
+loadStudents();
